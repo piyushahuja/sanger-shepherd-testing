@@ -1,0 +1,4 @@
+[submodule "shepherd"]
+	path = shepherd
+	url = https://github.com/wtsi-hgi/shepherd.git
+	branch = develop
