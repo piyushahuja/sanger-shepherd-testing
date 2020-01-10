@@ -12,12 +12,12 @@ You'll need Python 3.7, or newer:
 ## Submit
 
 1. Create a subdirectory in `run`, say named `RUN_DIR`;
-2. Copy your FoFN to this directory, named `fofn` (i.e.
+2. Copy your FoFN, which must be named `fofn`, to this directory (i.e.,
    `run/RUN_DIR/fofn`);
 3. `./submit.sh RUN_DIR`.
 
 This will transfer the files listed in your FoFN to iRODS, in
 `/humgen/shepherd_testing/RUN_DIR`, with common prefixes stripped. All
-logs will be output into `run/RUN_DIR`.
+logs will be written to `run/RUN_DIR`.
 
-**NOTE** Your FoFN should be newline-delimited absolute paths.
+**NOTE** Your FoFN must be newline-delimited absolute paths.
