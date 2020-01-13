@@ -40,11 +40,31 @@ export PREP_QUEUE="normal"
 export TRANSFER_QUEUE="long"
 export IRODS_BASE="/humgen/shepherd_testing"
 
-# Let's go!
-declare SUBCOLLECTION="$1"
-declare RUN_DIR="$(pwd)/run/${SUBCOLLECTION}"
-declare FOFN="${RUN_DIR}/fofn"
-export SHEPHERD_LOG="${RUN_DIR}"
+main() {
+  local mode="$1"
 
-source .venv/bin/activate
-shepherd/shepherd submit "${FOFN}" "${SUBCOLLECTION}"
+  case "${mode}" in
+    "submit")
+      local subcollection="$2"
+      local run_dir="$(pwd)/run/${subcollection}"
+      local fofn="${run_dir}/fofn"
+      export SHEPHERD_LOG="${run_dir}"
+
+      ;;
+
+    "status")
+      local job_id="$2"
+      export SHEPHERD_LOG="$(pwd)"
+
+      source .venv/bin/activate
+      shepherd/shepherd status "${job_id}"
+      ;;
+
+    *)
+      >&2 echo "Usage: shepherd.sh submit RUN_DIR | status JOB_ID"
+      exit 1
+      ;;
+  esac
+}
+
+main "$@"
