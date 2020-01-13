@@ -50,6 +50,8 @@ main() {
       local fofn="${run_dir}/fofn"
       export SHEPHERD_LOG="${run_dir}"
 
+      source .venv/bin/activate
+      shepherd/shepherd submit "${fofn}" "${subcollection}"
       ;;
 
     "status")
