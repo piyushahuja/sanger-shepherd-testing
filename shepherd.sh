@@ -48,10 +48,11 @@ main() {
       local subcollection="$2"
       local run_dir="$(pwd)/run/${subcollection}"
       local fofn="${run_dir}/fofn"
+      local metadata="${run_dir}/metadata.json"
       export SHEPHERD_LOG="${run_dir}"
 
       source .venv/bin/activate
-      shepherd/shepherd submit "${fofn}" "${subcollection}"
+      shepherd/shepherd submit "${fofn}" "${subcollection}" "${metadata}"
       ;;
 
     "status")

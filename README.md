@@ -14,7 +14,10 @@ You'll need Python 3.7, or newer:
 1. Create a subdirectory in `run`, say named `RUN_DIR`;
 2. Copy your FoFN, which must be named `fofn`, to this directory (i.e.,
    `run/RUN_DIR/fofn`);
-3. `./shepherd.sh submit RUN_DIR`.
+3. Create a metadata JSON file, named `metadata.json` (i.e.,
+   `run/RUN_DIR/metadata.json`), which consists of a single object of
+   key-value pairs;
+4. `./shepherd.sh submit RUN_DIR`.
 
 This will transfer the files listed in your FoFN to iRODS, in
 `/humgen/archive/RUN_DIR` (by default), with common prefixes stripped.
