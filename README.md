@@ -17,13 +17,26 @@ You'll need Python 3.7, or newer:
 3. `./shepherd.sh submit RUN_DIR`.
 
 This will transfer the files listed in your FoFN to iRODS, in
-`/humgen/shepherd_testing/RUN_DIR`, with common prefixes stripped. All
-logs will be written to `run/RUN_DIR`.
+`/humgen/archive/RUN_DIR` (by default), with common prefixes stripped.
+All logs will be written to `run/RUN_DIR`.
 
-**NOTE** Your FoFN must be newline-delimited absolute paths.
+**NOTE** Your FoFN must be `\n`-delimited absolute paths.
+
+The following environment variables can be used to override the default
+behaviour:
+
+* `PREP_QUEUE` sets the LSF queue for the preparation phase (defaults to
+  `normal`);
+* `TRANSFER_QUEUE` sets the LSF queue for the transfer phase (defaults
+  to `long`);
+* `IRODS_BASE` sets the base collection into which to transfer (defaults
+  to `/humgen/archive`).
 
 ## Status
 
     shepherd.sh status JOB_ID
 
-...where `JOB_ID` is the shepherd job ID.
+...where `JOB_ID` is the shepherd job ID, which is reported on
+submission. Note that this is not the same as the LSF job IDs; you can
+look up the shepherd job ID, should you forget it, by looking through
+the submission log (i.e., `run/RUN_DIR/submit.log`).

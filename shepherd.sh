@@ -25,7 +25,7 @@ case "${FARM}" in
     ;;
 esac
 
-# Our dummy PostgreSQL instance
+# Our pet PostgreSQL instance
 export PG_HOST="172.27.84.210"
 export PG_DATABASE="postgres"
 export PG_USERNAME="postgres"
@@ -36,9 +36,9 @@ export LSF_CONFIG="/usr/local/lsf/conf/lsbatch/${FARM}/configdir"
 export LSF_GROUP="hgi-archive"
 
 # Transfer options
-export PREP_QUEUE="normal"
-export TRANSFER_QUEUE="long"
-export IRODS_BASE="/humgen/shepherd_testing"
+export PREP_QUEUE="${PREP_QUEUE-normal}"
+export TRANSFER_QUEUE="${TRANSFER_QUEUE-long}"
+export IRODS_BASE="${IRODS_BASE}-/humgen/archive"
 
 main() {
   local mode="$1"
@@ -63,7 +63,7 @@ main() {
       ;;
 
     *)
-      >&2 echo "Usage: shepherd.sh submit RUN_DIR | status JOB_ID"
+      >&2 echo "Usage: shepherd.sh ( submit RUN_DIR | status JOB_ID )"
       exit 1
       ;;
   esac
