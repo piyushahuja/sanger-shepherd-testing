@@ -43,3 +43,16 @@ behaviour:
 submission. Note that this is not the same as the LSF job IDs; you can
 look up the shepherd job ID, should you forget it, by looking through
 the submission log (i.e., `run/RUN_DIR/submit.log`).
+
+## Resume
+
+    shepherd.sh resume JOB_ID [--force]
+
+If the workers for a job have died and failed to resurrect themselves,
+then the `resume` subcommand can be used to resume a previously running
+job. A job can only be resumed if the preparation phase has started; if
+it has not finished, the `--force` flag must also be provided.
+
+**NOTE** If you resume a job whose workers are still operational, this
+may have unintended consequences. *Only* use this option when the
+transfer workers have been permanently killed.

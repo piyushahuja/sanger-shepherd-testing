@@ -43,6 +43,8 @@ export IRODS_BASE="${IRODS_BASE-/humgen/archive}"
 main() {
   local mode="$1"
 
+  source .venv/bin/activate
+
   case "${mode}" in
     "submit")
       local subcollection="$2"
@@ -51,20 +53,30 @@ main() {
       local metadata="${run_dir}/metadata.json"
       export SHEPHERD_LOG="${run_dir}"
 
-      source .venv/bin/activate
       shepherd/shepherd submit "${fofn}" "${subcollection}" "${metadata}"
+      ;;
+
+    "resume")
+      local job_id="$2"
+      export SHEPHERD_LOG="$(pwd)"
+
+      # TODO Make this less shit
+      if (( $# == 3 )) && [[ "$3" == "--force" ]]; then
+        shepherd/shepherd resume "${job_id}" --force
+      else
+        shepherd/shepherd resume "${job_id}"
+      fi
       ;;
 
     "status")
       local job_id="$2"
       export SHEPHERD_LOG="$(pwd)"
 
-      source .venv/bin/activate
       shepherd/shepherd status "${job_id}"
       ;;
 
     *)
-      >&2 echo "Usage: shepherd.sh ( submit RUN_DIR | status JOB_ID )"
+      >&2 echo "Usage: shepherd.sh ( submit RUN_DIR | resume JOB_ID [--force] | status JOB_ID )"
       exit 1
       ;;
   esac
