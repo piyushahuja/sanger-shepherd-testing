@@ -8,6 +8,9 @@ set -euo pipefail
 # Quick-and-dirty restart
 declare SHEPHERD_JOB="$1"
 
+# Become mercury#humgen
+export IRODS_ENVIRONMENT_FILE="/nfs/users/nfs_m/mercury/.irods/irods_environment.humgen.json"
+
 # Our pet PostgreSQL instance
 export PG_HOST="172.27.84.210"
 export PG_DATABASE="postgres"
@@ -47,6 +50,7 @@ export LSF_CONFIG="/usr/local/lsf/conf/lsbatch/farm5/configdir"
 export LSF_GROUP="hgi-archive"
 
 # Transfer options
+export PREP_QUEUE="normal"
 export TRANSFER_QUEUE="${TRANSFER_QUEUE-long}"
 export IRODS_BASE="${IRODS_BASE-/humgen/archive}"
 

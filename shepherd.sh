@@ -5,12 +5,11 @@ set -euo pipefail
 # Setup
 declare FARM="$(lsclusters | awk 'NR == 2 { print $1 }')"
 case "${FARM}" in
-  "farm3")
-    # Add baton from HGI modules
-    module add hgi/baton/latest
+  "farm3" | "farm5")
+    # baton already available from .bashrc
     ;;
 
-  "farm4" | "farm5")
+  "farm4")
     # Add Singularity from ISG modules
     export MODULEPATH="/software/modules/ISG:${MODULEPATH}"
     module add singularity/3.2.0
@@ -24,6 +23,9 @@ case "${FARM}" in
     exit 1
     ;;
 esac
+
+# Become mercury#humgen
+export IRODS_ENVIRONMENT_FILE="/nfs/users/nfs_m/mercury/.irods/irods_environment.humgen.json"
 
 # Our pet PostgreSQL instance
 export PG_HOST="172.27.84.210"
@@ -57,15 +59,17 @@ main() {
       ;;
 
     "resume")
-      local job_id="$2"
-      export SHEPHERD_LOG="$(pwd)"
+      ## local job_id="$2"
+      ## export SHEPHERD_LOG="$(pwd)"
 
-      # TODO Make this less shit
-      if (( $# == 3 )) && [[ "$3" == "--force" ]]; then
-        shepherd/shepherd resume "${job_id}" --force
-      else
-        shepherd/shepherd resume "${job_id}"
-      fi
+      ## # TODO Make this less shit
+      ## if (( $# == 3 )) && [[ "$3" == "--force" ]]; then
+      ##   shepherd/shepherd resume "${job_id}" --force
+      ## else
+      ##   shepherd/shepherd resume "${job_id}"
+      ## fi
+      >&2 echo "This is broken. Use resume.sh, but only if you know what you're doing\!"
+      exit 1
       ;;
 
     "status")
