@@ -2,3 +2,6 @@
 	path = shepherd
 	url = https://github.com/wtsi-hgi/shepherd.git
 	branch = develop
+[submodule "crook"]
+	path = crook
+	url = git@github.com:wtsi-hgi/crook.git
