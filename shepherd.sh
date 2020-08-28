@@ -3,7 +3,7 @@
 set -euo pipefail
 
 # Setup
-declare FARM="$(lsclusters | awk 'NR == 2 { print $1 }')"
+declare FARM="farm5"
 case "${FARM}" in
   "farm3" | "farm5")
     # baton already available from .bashrc
